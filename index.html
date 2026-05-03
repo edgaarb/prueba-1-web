@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edgar Badillo | Oil Portraits</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a0a0a0;
+            --accent: #c5a059; /* Muted gold */
+            --border: rgba(255, 255, 255, 0.1);
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, .serif {
+            font-family: 'Cormorant+Garamond', serif;
+            font-weight: 300;
+        }
+
+        /* Layout Helpers */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        section {
+            padding: 120px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, var(--bg-color) 0%, transparent 100%);
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        #home {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--accent);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .hero-statement {
+            max-width: 600px;
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .artwork-card {
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .frame {
+            aspect-ratio: 4/5;
+            background: #151515;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .frame::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+            pointer-events: none;
+        }
+
+        .placeholder-svg {
+            width: 40px;
+            opacity: 0.1;
+            transition: var(--transition);
+        }
+
+        .artwork-card:hover .frame {
+            border-color: var(--accent);
+            transform: scale(1.02);
+        }
+
+        .artwork-card:hover .placeholder-svg {
+            opacity: 0.3;
+            transform: scale(1.1);
+        }
+
+        .artwork-info {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .artwork-title {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .artwork-meta {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Modal / Detail View */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-color);
+            z-index: 2000;
+            display: none;
+            padding: 60px;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .modal-image-container {
+            width: 100%;
+            aspect-ratio: 4/5;
+            background: #111;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 2rem;
+            cursor: pointer;
+            font-family: serif;
+        }
+
+        .inquiry-btn {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 15px 40px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.7rem;
+            transition: var(--transition);
+        }
+
+        .inquiry-btn:hover {
+            background: var(--accent);
+            color: var(--bg-color);
+        }
+
+        /* About Section */
+        .about-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+        }
+
+        .about-image {
+            aspect-ratio: 1;
+            background: #151515;
+            border: 1px solid var(--border);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-form {
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        input, textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+            color: var(--text-primary);
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .submit-btn {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--text-primary);
+            padding: 15px;
+            cursor: pointer;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            background: var(--text-primary);
+            color: var(--bg-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .container { padding: 0 24px; }
+            section { padding: 80px 0; }
+            .about-split { grid-template-columns: 1fr; gap: 40px; }
+            .modal-content { grid-template-columns: 1fr; gap: 40px; padding: 20px; }
+            .modal { padding: 40px 20px; }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 1.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#home" class="logo">Edgar Badillo</a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="visible">
+        <h1 class="hero-title">Edgar Badillo</h1>
+        <p class="hero-subtitle">Oil Portraits</p>
+        <p class="hero-statement">Capturing the quiet intersection of light, shadow, and the human soul through the timeless medium of oil on canvas.</p>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="container">
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 20px;">The Exhibition</h2>
+        <p style="text-align: center; color: var(--text-secondary); max-width: 500px; margin: 0 auto 60px;">A collection of recent studies in character and form.</p>
+        
+        <div class="gallery-grid">
+            <!-- Card 1 -->
+            <div class="artwork-card" onclick="openArtwork('Luminescence', '24 x 30 inches', 'Oil on Belgian Linen', 'A study of morning light falling across a seated figure, exploring the warmth of skin tones against cool shadows.')">
+                <div class="frame">
+                    <svg class="placeholder-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path d="M9 10a1 1 0 100-2 1 1 0 000 2z"></path><path d="M15 10a1 1 0 100-2 1 1 0 000 2z"></path><path d="M17.5 15a5.5 5.5 0 01-11 0"></path></svg>
+                </div>
+                <div class="artwork-info">
+                    <h3 class="artwork-title">Luminescence</h3>
+                    <p class="artwork-meta">2023 • Study</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="artwork-card" onclick="openArtwork('The Quiet Reflection', '18 x 24 inches', 'Oil on Wood Panel', 'Focusing on the introspective gaze, this piece utilizes a limited palette to emphasize emotion over color.')">
+                <div class="frame">
+                   <svg class="placeholder-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path d="M9 10a1 1 0 100-2 1 1 0 000 2z"></path><path d="M15 10a1 1 0 100-2 1 1 0 000 2z"></path><path d="M17.5 15a5.5 5.5 0 01-11 0"></path></svg>
+                </div>
+                <div class="artwork-info">
+                    <h3 class="artwork-title">The Quiet Reflection</h3>
+                    <p class="artwork-meta">2024 • Portrait</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="artwork-card" onclick="openArtwork('Nocturne Study', '36 x 48 inches', 'Oil on Canvas', 'An exploration of deep blacks and subtle grays, depicting a subject in the veil of late-night studio lighting.')">
+                <div class="frame">
+                    <svg class="placeholder-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path d="M9 10a1 1 0 100-2 1 1 0 000 2z"></path><path d="M15 10a1 1 0 100-2 1 1 0 000 2z"></path><path d="M17.5 15a5.5 5.5 0 01-11 0"></path></svg>
+                </div>
+                <div class="artwork-info">
+                    <h3 class="artwork-title">Nocturne Study</h3>
+                    <p class="artwork-meta">2024 • Large Format</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="container">
+        <div class="about-split">
+            <div class="about-image"></div>
+            <div class="about-text">
+                <h2>The Artist</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">Edgar Badillo is a contemporary oil painter specializing in portraiture. His work is characterized by a deep reverence for the techniques of the Old Masters, filtered through a modern, minimal lens.</p>
+                <p style="color: var(--text-secondary);">Operating out of his private studio, Edgar focuses on commissioned portraits that go beyond likeness, seeking to document the transient moods and internal narratives of his subjects.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="container">
+        <div class="contact-content">
+            <h2 style="font-size: 3rem;">Inquiries</h2>
+            <p style="color: var(--text-secondary);">For commissions, gallery representation, or available works, please reach out directly.</p>
+            
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent. Thank you for your interest.');">
+                <div class="input-group">
+                    <input type="text" placeholder="Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <textarea rows="5" placeholder="Message or Commission Details"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+
+            <div style="margin-top: 60px;">
+                <a href="#" style="color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; letter-spacing: 1px;">INSTAGRAM</a>
+                <span style="margin: 0 20px; opacity: 0.2;">|</span>
+                <a href="#" style="color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; letter-spacing: 1px;">ARTSY</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Artwork Detail Modal -->
+    <div id="artworkModal" class="modal">
+        <button class="modal-close" onclick="closeArtwork()">&times;</button>
+        <div class="modal-content">
+            <div class="modal-image-container">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path d="M9 10a1 1 0 100-2 1 1 0 000 2z"></path><path d="M15 10a1 1 0 100-2 1 1 0 000 2z"></path><path d="M17.5 15a5.5 5.5 0 01-11 0"></path></svg>
+            </div>
+            <div class="modal-details">
+                <h2 id="modalTitle" style="font-size: 3rem; margin-bottom: 10px;">Artwork Title</h2>
+                <p id="modalMeta" style="color: var(--accent); letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 30px;">Size • Technique</p>
+                <p id="modalDesc" style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 40px;">Description goes here.</p>
+                <hr style="border: none; border-top: 1px solid var(--border); margin-bottom: 40px;">
+                <a href="#contact" class="inquiry-btn" onclick="closeArtwork()">Inquire about this piece</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Modal Logic
+        const modal = document.getElementById('artworkModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMeta = document.getElementById('modalMeta');
+        const modalDesc = document.getElementById('modalDesc');
+
+        function openArtwork(title, size, technique, description) {
+            modalTitle.innerText = title;
+            modalMeta.innerText = `${size} • ${technique}`;
+            modalDesc.innerText = description;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            modal.scrollTo(0,0);
+        }
+
+        function closeArtwork() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on escape key
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeArtwork();
+        });
+    </script>
+</body>
+</html>
