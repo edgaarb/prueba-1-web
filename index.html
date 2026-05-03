@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evidencia 3 — Ética · Edgar Badillo González</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F5F0E8;
+      --bg-card: #FEFCF8;
+      --ink: #1C1A17;
+      --ink-soft: #4A4540;
+      --ink-muted: #8A8278;
+      --accent: #C2601E;
+      --accent-soft: #F0DDD0;
+      --accent2: #3A6B4A;
+      --accent2-soft: #D5E8D8;
+      --accent3: #2E4D7A;
+      --accent3-soft: #D0DCEC;
+      --accent4: #7A3A6A;
+      --accent4-soft: #EAD5E4;
+      --accent5: #4A6B3A;
+      --border: #DDD5C8;
+      --shadow: rgba(28, 26, 23, 0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      font-size: 17px;
+      overflow-x: hidden;
+    }
+
+    /* ── DECORATIVE GRAIN ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.4;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      padding: 3.5rem 2rem 2.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .site-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 80px; height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .header-tag {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.2rem;
+    }
+
+    .site-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .site-subtitle {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink-soft);
+      margin-top: 0.6rem;
+    }
+
+    /* ── NAV DOTS ── */
+    .toc-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      padding: 1.6rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+
+    .toc-nav a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--ink-soft);
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+    .toc-nav a:hover { color: var(--ink); border-color: var(--ink-muted); background: var(--bg); }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── SECTION CARDS ── */
+    .topic-section {
+      margin: 3.5rem auto;
+      max-width: 760px;
+      padding: 0 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .topic-section:nth-child(1) { animation-delay: 0.05s; }
+    .topic-section:nth-child(2) { animation-delay: 0.15s; }
+    .topic-section:nth-child(3) { animation-delay: 0.25s; }
+    .topic-section:nth-child(4) { animation-delay: 0.35s; }
+    .topic-section:nth-child(5) { animation-delay: 0.45s; }
+
+    .topic-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 2.4rem 2.4rem 2rem;
+      box-shadow: 0 2px 12px var(--shadow);
+      transition: box-shadow 0.2s ease;
+    }
+    .topic-card:hover { box-shadow: 0 6px 24px var(--shadow); }
+
+    .topic-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.8rem;
+      border-radius: 100px;
+      margin-bottom: 1rem;
+    }
+
+    .topic-number {
+      font-family: 'Fraunces', serif;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--ink-muted);
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
+    .topic-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .topic-body {
+      color: var(--ink-soft);
+      line-height: 1.82;
+    }
+
+    .topic-body p { margin-bottom: 1rem; }
+    .topic-body p:last-child { margin-bottom: 0; }
+
+    /* ── COLOUR VARIANTS PER TOPIC ── */
+    .t1 .topic-badge { background: var(--accent-soft); color: var(--accent); }
+    .t1 .topic-title { color: var(--accent); }
+    .t1 { border-left: 4px solid var(--accent); border-radius: 4px 18px 18px 4px; }
+
+    .t2 .topic-badge { background: var(--accent2-soft); color: var(--accent2); }
+    .t2 .topic-title { color: var(--accent2); }
+    .t2 { border-left: 4px solid var(--accent2); border-radius: 4px 18px 18px 4px; }
+
+    .t3 .topic-badge { background: var(--accent3-soft); color: var(--accent3); }
+    .t3 .topic-title { color: var(--accent3); }
+    .t3 { border-left: 4px solid var(--accent3); border-radius: 4px 18px 18px 4px; }
+
+    .t4 .topic-badge { background: var(--accent4-soft); color: var(--accent4); }
+    .t4 .topic-title { color: var(--accent4); }
+    .t4 { border-left: 4px solid var(--accent4); border-radius: 4px 18px 18px 4px; }
+
+    .t5 .topic-badge { background: var(--accent2-soft); color: var(--accent5); }
+    .t5 .topic-title { color: var(--accent5); }
+    .t5 { border-left: 4px solid var(--accent5); border-radius: 4px 18px 18px 4px; }
+
+    /* ── BLOCKQUOTE ── */
+    blockquote {
+      margin: 1.2rem 0;
+      padding: 1rem 1.4rem;
+      background: var(--bg);
+      border-radius: 10px;
+      border-left: 3px solid var(--border);
+      font-style: italic;
+      color: var(--ink-soft);
+      font-size: 0.96rem;
+    }
+
+    /* ── TAGS / CHIPS ── */
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 1.2rem 0 0;
+    }
+    .chip {
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--ink-muted);
+    }
+
+    /* ── DIVIDER ── */
+    .wave-divider {
+      text-align: center;
+      color: var(--border);
+      font-size: 1.4rem;
+      letter-spacing: 0.3em;
+      margin: 0.5rem 0;
+    }
+
+    /* ── JUSTIFICACIÓN ── */
+    .justif-section {
+      max-width: 760px;
+      margin: 3.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .justif-card {
+      background: var(--ink);
+      color: #F5F0E8;
+      border-radius: 18px;
+      padding: 2.8rem 2.4rem;
+      box-shadow: 0 4px 20px rgba(28,26,23,0.18);
+    }
+
+    .justif-card .section-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #C2601E;
+      margin-bottom: 0.8rem;
+    }
+
+    .justif-card h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 700;
+      color: #F5F0E8;
+      margin-bottom: 1.6rem;
+      line-height: 1.2;
+    }
+
+    .justif-point {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 0 1rem;
+      margin-bottom: 1.4rem;
+      align-items: start;
+    }
+
+    .justif-num {
+      width: 36px; height: 36px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fraunces', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .justif-text strong {
+      display: block;
+      font-weight: 500;
+      color: #F5F0E8;
+      margin-bottom: 0.3rem;
+    }
+
+    .justif-text p {
+      font-size: 0.94rem;
+      color: rgba(245,240,232,0.75);
+      line-height: 1.7;
+    }
+
+    /* ── REFERENCES ── */
+    .references-section {
+      max-width: 760px;
+      margin: 3.5rem auto 5rem;
+      padding: 0 1.5rem;
+    }
+
+    .references-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 2.4rem;
+    }
+
+    .ref-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .ref-icon {
+      width: 40px; height: 40px;
+      background: var(--accent-soft);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .ref-header h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .ref-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .ref-list li {
+      font-size: 0.87rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      padding: 0.9rem 1.1rem;
+      background: var(--bg);
+      border-radius: 10px;
+      border-left: 3px solid var(--border);
+      transition: border-color 0.2s;
+    }
+    .ref-list li:hover { border-left-color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+    }
+
+    footer strong { color: var(--ink-soft); }
+
+    /* ── SECTION LABEL ABOVE TITLE ── */
+    .section-intro {
+      text-align: center;
+      max-width: 760px;
+      margin: 4rem auto 2rem;
+      padding: 0 1.5rem;
+    }
+
+    .section-intro-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .section-intro h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 0.4rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .topic-card { padding: 1.6rem 1.4rem; }
+      .justif-card { padding: 2rem 1.4rem; }
+      .references-card { padding: 1.6rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-tag">Módulo 3 · Ética y Ciudadanía</div>
+    <h1 class="site-title">Evidencia 3 — Ética</h1>
+    <p class="site-subtitle">Edgar Badillo González</p>
+  </header>
+
+  <!-- NAV -->
+  <nav class="toc-nav" aria-label="Ir a sección">
+    <a href="#derechos">🌍 Derechos Humanos</a>
+    <a href="#capital">🤝 Capital Social</a>
+    <a href="#convivencia">🔁 Convivencia</a>
+    <a href="#empatia">💬 Empatía</a>
+    <a href="#etica">🌱 Ética Planetaria</a>
+    <a href="#justif">📝 Justificación</a>
+    <a href="#fuentes">📚 Fuentes</a>
+  </nav>
+
+  <!-- INTRO LABEL -->
+  <div class="section-intro">
+    <p class="section-intro-label">Cinco subtemas del módulo</p>
+    <h2>Lo que necesitas saber</h2>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SUBTEMA 11.1 — DERECHOS HUMANOS
+  ════════════════════════════════════════ -->
+  <section class="topic-section" id="derechos">
+    <div class="topic-card t1">
+      <span class="topic-badge">Subtema 11.1</span>
+      <span class="topic-number">Primer tema</span>
+      <h2 class="topic-title">Declaración Universal de los Derechos Humanos</h2>
+      <div class="topic-body">
+        <p>
+          Después de la Segunda Guerra Mundial, el mundo entero quedó en shock. Las atrocidades cometidas dejaron claro que sin reglas claras, cualquier gobierno podía hacer lo que quisiera con su gente. Por eso, en 1948, la Asamblea General de la ONU aprobó en París la <strong>Declaración Universal de los Derechos Humanos (DUDH)</strong>, un documento de 30 artículos que le dice al mundo: hay cosas que ningún gobierno puede quitarte, sin importar dónde naciste.
+        </p>
+        <blockquote>
+          "Todos los seres humanos nacen libres e iguales en dignidad y derechos." — Artículo 1, DUDH (1948)
+        </blockquote>
+        <p>
+          Este documento fue redactado por gente de todas las regiones del mundo: Eleanor Roosevelt desde Estados Unidos, René Cassin por Francia, Charles Malik por Líbano, entre otros. Fue aprobado con 48 votos a favor y sin ninguno en contra. Desde entonces, ha inspirado más de 70 tratados internacionales y está traducido a más de 500 idiomas.
+        </p>
+        <p>
+          Lo que hace especial a la DUDH es que los derechos que contiene son <strong>interdependientes</strong>: no puedes decir que unos son más importantes que otros. Si pierdes uno, los demás se tambalean. En México, esto se refluyó de forma concreta en la <em>reforma constitucional de 2011</em>, que obligó a todas las autoridades del país a respetar los derechos humanos con base en los tratados internacionales que México ha firmado.
+        </p>
+        <p>
+          En la práctica, significa que cualquier persona en México puede exigir su derecho a la educación, a la salud o a no ser discriminada, con respaldo directo en este marco global.
+        </p>
+        <div class="chip-row">
+          <span class="chip">ONU 1948</span>
+          <span class="chip">30 artículos</span>
+          <span class="chip">Dignidad humana</span>
+          <span class="chip">Tratados internacionales</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-divider">· · ·</div>
+
+  <!-- ═══════════════════════════════════════
+       SUBTEMA 12.2 — CAPITAL SOCIAL
+  ════════════════════════════════════════ -->
+  <section class="topic-section" id="capital">
+    <div class="topic-card t2">
+      <span class="topic-badge">Subtema 12.2</span>
+      <span class="topic-number">Segundo tema</span>
+      <h2 class="topic-title">Capital Social y Ciudadanía</h2>
+      <div class="topic-body">
+        <p>
+          Cuando escuchas "capital" lo primero que viene a la mente es dinero, pero el <strong>capital social</strong> no tiene nada que ver con lo económico (bueno, no directamente). Se trata de algo más difícil de medir y mucho más valioso para una comunidad: <em>la confianza, las redes de apoyo y las normas de cooperación</em> que permiten que la gente trabaje junta por un bien común.
+        </p>
+        <p>
+          Tres pensadores lo desarrollaron con fuerza: <strong>Pierre Bourdieu</strong> lo veía como los recursos que obtienes al pertenecer a redes sociales. <strong>James Coleman</strong> destacó su función como "bien público". Y <strong>Robert Putnam</strong>, el más influyente de los tres, demostró con 20 años de investigación en Italia que las regiones donde la gente participaba en asociaciones, clubes y organizaciones civiles tenían gobiernos mucho más eficientes y democracias más sanas.
+        </p>
+        <blockquote>
+          "Las redes de compromiso cívico son una forma esencial de capital social: cuanto más densas sean en una comunidad, más probable es que sus ciudadanos cooperen para beneficio mutuo." — Putnam (1993)
+        </blockquote>
+        <p>
+          En pocas palabras: cuanta más gente se organiza, se involucra y confía en sus vecinos, más fácil es resolver problemas colectivos. Sin capital social, el clientelismo y la desconfianza llenan el vacío. Un ejemplo cercano a nosotros: el <em>tequio</em> en comunidades oaxaqueñas, esa práctica indígena de trabajo colectivo sin pago, es capital social en su forma más pura.
+        </p>
+        <div class="chip-row">
+          <span class="chip">Putnam</span>
+          <span class="chip">Bourdieu</span>
+          <span class="chip">Redes cívicas</span>
+          <span class="chip">Confianza social</span>
+          <span class="chip">Democracia</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-divider">· · ·</div>
+
+  <!-- ═══════════════════════════════════════
+       SUBTEMA 13.2 — CONVIVENCIA Y EXCLUSIÓN
+  ════════════════════════════════════════ -->
+  <section class="topic-section" id="convivencia">
+    <div class="topic-card t3">
+      <span class="topic-badge">Subtema 13.2</span>
+      <span class="topic-number">Tercer tema</span>
+      <h2 class="topic-title">Convivencia y Exclusión</h2>
+      <div class="topic-body">
+        <p>
+          Vivir en sociedad suena sencillo, pero convivir de verdad con personas que piensan, creen o son diferentes a ti requiere un esfuerzo ético real. No basta con tolerarse; hay que reconocerse. Y cuando eso falla, surge la <strong>exclusión social</strong>.
+        </p>
+        <p>
+          El teólogo croata <strong>Miroslav Volf</strong>, quien vivió de cerca los conflictos de la ex Yugoslavia en los años 90, identificó cuatro formas en que una sociedad puede excluir al diferente:
+        </p>
+        <blockquote>
+          <strong>Eliminación:</strong> expulsar o aniquilar al otro, borrarlo del espacio social.<br>
+          <strong>Asimilación:</strong> obligar al otro a dejar su identidad para "encajar".<br>
+          <strong>Dominación:</strong> mantenerlo en desventaja, sin voz ni voto en las decisiones.<br>
+          <strong>Abandono:</strong> marginarlo y negarle acceso a recursos básicos como salud, educación o vivienda.
+        </blockquote>
+        <p>
+          Lo interesante (y preocupante) es que estas formas no siempre se ven como violencia. Que a un niño indígena se le prohíba hablar su lengua en la escuela es asimilación. Que una colonia no tenga agua potable mientras otra sí, es abandono. La exclusión muchas veces se disfraza de "normalidad".
+        </p>
+        <p>
+          Cuando esto persiste y se extiende, genera tensiones profundas que pueden escalar a conflictos mayores, como sucedió en Yugoslavia. La convivencia real no es ignorar las diferencias: es construir espacios donde todas las identidades tengan lugar.
+        </p>
+        <div class="chip-row">
+          <span class="chip">Miroslav Volf</span>
+          <span class="chip">Inclusión</span>
+          <span class="chip">Diversidad</span>
+          <span class="chip">Identidad</span>
+          <span class="chip">Justicia social</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-divider">· · ·</div>
+
+  <!-- ═══════════════════════════════════════
+       SUBTEMA 14.1 — EMPATÍA Y ESCUCHA
+  ════════════════════════════════════════ -->
+  <section class="topic-section" id="empatia">
+    <div class="topic-card t4">
+      <span class="topic-badge">Subtema 14.1</span>
+      <span class="topic-number">Cuarto tema</span>
+      <h2 class="topic-title">Empatía y Escucha</h2>
+      <div class="topic-body">
+        <p>
+          Hay una diferencia enorme entre <em>oír</em> y <em>escuchar</em>. Oír es pasivo: el sonido llega y ya. Escuchar de verdad requiere atención, presencia y disposición a entender. Eso es la <strong>escucha activa</strong>, y combinada con la <strong>empatía</strong>, se convierte en una de las herramientas más poderosas que tenemos para relacionarnos con otros.
+        </p>
+        <p>
+          La empatía, según Daniel Goleman, es la capacidad de ponernos en el lugar de otra persona: entender sus emociones y perspectivas sin juzgarlas. No significa estar de acuerdo con todo lo que el otro siente, sino reconocer que lo que siente es válido para él o ella. Carl Rogers, psicólogo humanista, la llamó <em>escucha empática</em>: escuchar no sólo las palabras, sino lo que está detrás de ellas.
+        </p>
+        <blockquote>
+          La escucha activa implica prestar atención plena, empatía y la capacidad de ponerse en el lugar de la otra persona. Va más allá de oír: requiere interpretar el mensaje y validar emociones.
+        </blockquote>
+        <p>
+          Investigaciones recientes con docentes de educación básica muestran que la escucha empática es clave para trabajar en equipo y resolver conflictos en la escuela (Benoit, 2023). Cuando alguien siente que lo escuchan de verdad, baja la guardia, se abre al diálogo y tiene más disposición a colaborar.
+        </p>
+        <p>
+          En la práctica escolar, los programas de <em>mediación entre pares</em> son un gran ejemplo: estudiantes capacitados en estas habilidades ayudan a resolver conflictos entre compañeros sin necesidad de recurrir a las autoridades. Resultado: menos violencia, mejor ambiente.
+        </p>
+        <div class="chip-row">
+          <span class="chip">Goleman</span>
+          <span class="chip">Carl Rogers</span>
+          <span class="chip">Inteligencia emocional</span>
+          <span class="chip">Comunicación</span>
+          <span class="chip">Mediación</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-divider">· · ·</div>
+
+  <!-- ═══════════════════════════════════════
+       SUBTEMA 15.1 — ÉTICA PLANETARIA
+  ════════════════════════════════════════ -->
+  <section class="topic-section" id="etica">
+    <div class="topic-card t5">
+      <span class="topic-badge">Subtema 15.1</span>
+      <span class="topic-number">Quinto tema</span>
+      <h2 class="topic-title">Ética Planetaria</h2>
+      <div class="topic-body">
+        <p>
+          La ética tradicional siempre preguntó: ¿qué le debo a las personas que están a mi alrededor? La <strong>ética planetaria</strong> amplía radicalmente esa pregunta: ¿qué le debemos al planeta, a las especies que lo habitan y a las generaciones que aún no nacen?
+        </p>
+        <p>
+          El filósofo alemán <strong>Hans Jonas</strong> desarrolló esta idea en su libro <em>El principio de responsabilidad</em> (1979). Su argumento central es que la tecnología moderna le da al ser humano un poder inmenso sobre la naturaleza, y ese poder viene con una responsabilidad igual de grande. No podemos actuar sólo pensando en el presente; tenemos que hacernos responsables de las consecuencias futuras de nuestras decisiones.
+        </p>
+        <blockquote>
+          "Actúa de tal manera que los efectos de tu acción sean compatibles con la permanencia de vida humana genuina en la Tierra." — Hans Jonas (1979)
+        </blockquote>
+        <p>
+          Jonas propone una <em>heurística del temor</em>: ante la duda, imagina el peor escenario posible y actúa con precaución, porque el daño ambiental puede ser irreversible. Todos somos parte del sistema que explota la Tierra, todos tenemos responsabilidad.
+        </p>
+        <p>
+          Esto se conecta directamente con los <strong>17 Objetivos de Desarrollo Sostenible (ODS)</strong> de la Agenda 2030, que traducen esta ética en acciones concretas: energía limpia, agua para todos, ciudades sostenibles, alianzas globales. Un ejemplo local muy poderoso: las <em>mingas de agua</em> en comunidades indígenas, donde la comunidad cuida colectivamente las fuentes hídricas para las generaciones futuras. Eso es ética planetaria vivida desde abajo.
+        </p>
+        <div class="chip-row">
+          <span class="chip">Hans Jonas</span>
+          <span class="chip">Responsabilidad</span>
+          <span class="chip">Generaciones futuras</span>
+          <span class="chip">ODS / Agenda 2030</span>
+          <span class="chip">Sostenibilidad</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-divider">· · ·</div>
+
+  <!-- ═══════════════════════════════════════
+       JUSTIFICACIÓN
+  ════════════════════════════════════════ -->
+  <section class="justif-section" id="justif">
+    <div class="justif-card">
+      <p class="section-label">📝 Argumentación</p>
+      <h2>¿Por qué estos cinco temas son esenciales?</h2>
+
+      <div class="justif-point">
+        <div class="justif-num">1</div>
+        <div class="justif-text">
+          <strong>Forman una ruta lógica</strong>
+          <p>Los temas no son piezas sueltas: se construyen uno sobre otro. Los derechos humanos ponen la base moral, el capital social muestra cómo esa moral se vive en comunidad, la convivencia revela qué pasa cuando falla, la empatía da herramientas para remediarlo, y la ética planetaria lleva todo eso al horizonte más grande posible.</p>
+        </div>
+      </div>
+
+      <div class="justif-point">
+        <div class="justif-num">2</div>
+        <div class="justif-text">
+          <strong>Conectan con la realidad de México</strong>
+          <p>No son temas lejanos. La exclusión de pueblos indígenas, la desconfianza institucional, la violencia escolar y la crisis del agua son problemas presentes. Estos subtemas dan vocabulario y marco conceptual para entender y actuar en esa realidad.</p>
+        </div>
+      </div>
+
+      <div class="justif-point">
+        <div class="justif-num">3</div>
+        <div class="justif-text">
+          <strong>Desarrollan competencias del siglo XXI</strong>
+          <p>UNESCO y la OCDE coinciden: los jóvenes necesitan pensamiento crítico, colaboración, comunicación y ciudadanía global. Cada uno de estos cinco temas trabaja directamente esas competencias, no como contenido memorizable sino como práctica reflexiva.</p>
+        </div>
+      </div>
+
+      <div class="justif-point">
+        <div class="justif-num">4</div>
+        <div class="justif-text">
+          <strong>Generan aprendizaje significativo (Ausubel)</strong>
+          <p>Según Ausubel, aprendemos de verdad cuando el conocimiento nuevo se conecta con algo que ya vivimos. Todos hemos sentido que no nos escuchan, hemos visto exclusión, pertenecemos a redes de apoyo. Estos temas parten de esas experiencias reales y les dan sentido teórico.</p>
+        </div>
+      </div>
+
+      <div class="justif-point">
+        <div class="justif-num">5</div>
+        <div class="justif-text">
+          <strong>Construyen una ética integral</strong>
+          <p>Personal (empatía), comunitaria (capital social, convivencia), jurídica (derechos humanos) y planetaria (responsabilidad global). Eso es exactamente lo que el Módulo 3 necesita: ciudadanos éticos en todos los niveles de su vida, no sólo en teoría.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       REFERENCIAS APA
+  ════════════════════════════════════════ -->
+  <section class="references-section" id="fuentes">
+    <div class="references-card">
+      <div class="ref-header">
+        <div class="ref-icon">📚</div>
+        <h2>Referencias Bibliográficas</h2>
+      </div>
+      <p style="font-size:0.82rem;color:var(--ink-muted);margin-bottom:1.2rem;">Formato APA 7ª edición</p>
+      <ul class="ref-list">
+        <li>Amnistía Internacional. (2024). <em>La Declaración Universal de Derechos Humanos.</em> https://www.amnesty.org/es/what-we-do/universal-declaration-of-human-rights/</li>
+        <li>Ausubel, D. P. (2002). <em>Adquisición y retención del conocimiento: Una perspectiva cognitiva.</em> Paidós.</li>
+        <li>Benoit Ríos, C. G. (2023). La escucha empática, una habilidad fundamental para el trabajo colaborativo docente. <em>Alteridad, 18</em>(2), 165-178. https://scielo.senescyt.gob.ec/scielo.php?script=sci_arttext&pid=S2528-79072023000200165</li>
+        <li>Bourdieu, P. (1985). The forms of capital. En J. G. Richardson (Ed.), <em>Handbook of Theory and Research for the Sociology of Education</em> (pp. 241-258). Greenwood.</li>
+        <li>Consejo Nacional para Prevenir la Discriminación. (2023). <em>Encuesta Nacional sobre Discriminación.</em> https://www.conapred.org.mx</li>
+        <li>Elizalde, A. (2013). La ética medio ambiental: principios y valores para una ciudadanía responsable en la sociedad global. <em>Acta Bioethica, 19</em>(2), 177-188. https://www.scielo.cl/scielo.php?script=sci_arttext&pid=S1726-569X2013000200002</li>
+        <li>Goleman, D. (1995). <em>Emotional Intelligence: Why It Can Matter More Than IQ.</em> Bantam Books.</li>
+        <li>Jonas, H. (1995). <em>El principio de responsabilidad: ensayo de una ética para la civilización tecnológica.</em> Herder. (Obra original publicada en 1979)</li>
+        <li>Naciones Unidas. (1948). <em>Declaración Universal de los Derechos Humanos</em> (Resolución 217 A III). Asamblea General de la ONU. https://www.un.org/es/about-us/universal-declaration-of-human-rights</li>
+        <li>Naciones Unidas. (2015). <em>Transformar nuestro mundo: la Agenda 2030 para el Desarrollo Sostenible</em> (Resolución A/RES/70/1). https://www.un.org/sustainabledevelopment/es/</li>
+        <li>Oficina del Alto Comisionado para los Derechos Humanos. (2023). <em>Declaración Universal de Derechos Humanos.</em> https://www.ohchr.org/es/universal-declaration-of-human-rights</li>
+        <li>Putnam, R. D. (1993). <em>Making Democracy Work: Civic Traditions in Modern Italy.</em> Princeton University Press.</li>
+        <li>Rogers, C. (1980). <em>A Way of Being.</em> Houghton Mifflin.</li>
+        <li>UNESCO. (2006). <em>Directrices de la UNESCO sobre la educación intercultural.</em> https://unesdoc.unesco.org/ark:/48223/pf0000147878_spa</li>
+        <li>Urteaga, E. (2006). Capital social: premisas, problemas y perspectivas teóricas. <em>Revista Venezolana de Sociología y Antropología, 16</em>(47). https://ve.scielo.org/scielo.php?script=sci_arttext&pid=S0798-43242006000200005</li>
+        <li>Volf, M. (1996). <em>Exclusion and Embrace: A Theological Exploration of Identity, Otherness, and Reconciliation.</em> Abingdon Press.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p><strong>Edgar Badillo González</strong> · Evidencia 3 — Ética · Módulo 3</p>
+    <p style="margin-top:0.3rem;">Ética, Ciudadanía y Convivencia · 2025</p>
+  </footer>
+
+</body>
+</html>
